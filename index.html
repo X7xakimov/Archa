@@ -2,44 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>3D Spiral Christmas Tree</title>
+<title>3D Spiral Tree</title>
 <style>
     body {
         margin: 0;
-        background: #000;
+        background: black;
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        perspective: 800px;
         overflow: hidden;
-        font-family: sans-serif;
     }
 
     .tree {
         position: relative;
-        height: 50vmin;
-        width: 25vmin;
+        width: 1px;
+        height: 1px;
         transform-style: preserve-3d;
-        animation: spin 4s linear infinite;
+        animation: spin 5s linear infinite;
     }
 
     @keyframes spin {
         from { transform: rotateY(0deg); }
-        to { transform: rotateY(360deg); }
+        to   { transform: rotateY(360deg); }
     }
 
     .light {
         position: absolute;
-        width: 1.4vmin;
-        height: 1.4vmin;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        background: red;
         animation: glow 1s infinite alternate;
     }
 
     @keyframes glow {
-        from { opacity: 0.3; transform: scale(0.7); }
-        to   { opacity: 1;   transform: scale(1.3); }
+        from { opacity: 0.4; transform: scale(0.6); }
+        to   { opacity: 1;   transform: scale(1.2); }
     }
 </style>
 </head>
@@ -50,26 +49,24 @@
 <script>
 const tree = document.getElementById("tree");
 
-// 40 ta chiroq
-const TOTAL = 45;
+let total = 80; // chiroqlar soni
 
-for (let i = 0; i < TOTAL; i++) {
-
+for (let i = 0; i < total; i++) {
     let dot = document.createElement("div");
     dot.className = "light";
 
-    let angle = i * 12;          // spiral aylanish
-    let height = i * 1.2;        // tepaga ko‘tarilish
-    let radius = 12 - i * 0.22;  // tepaga chiqishi bilan radius kamayadi
+    // Spiral matematika
+    let angle = i * 12;
+    let height = i * 4;
+    let radius = 150 - i * 1.5;
 
     dot.style.transform = `
-        translateY(-${height}vmin)
+        translateY(${-height}px)
         rotateY(${angle}deg)
-        translateZ(${radius}vmin)
+        translateZ(${radius}px)
     `;
 
-    // Tasodifiy ranglar: qizil, oq, sariq
-    const colors = ["#ff4444", "#ffffff", "#ffdd55"];
+    const colors = ["#ff4444", "#ffffff", "#ffdd33"];
     dot.style.background = colors[Math.floor(Math.random() * colors.length)];
 
     tree.appendChild(dot);
